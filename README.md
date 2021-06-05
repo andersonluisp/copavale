@@ -14,5 +14,6 @@ Application to management championship organized in Faceit platform, consuming F
 ## Author
 
 Engineer Anderson Pimentel
+
 https://www.linkedin.com/in/anderson-pimentel-a2572624/
 
