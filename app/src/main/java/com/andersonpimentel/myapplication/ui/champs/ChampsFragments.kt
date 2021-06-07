@@ -14,7 +14,7 @@ import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentChampsBinding
 import com.andersonpimentel.myapplication.utils.GetApiData
 
-class ChampsFragments : Fragment() {
+class ChampsFragments(val filter: String) : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var champsViewModel: ChampsViewModel
@@ -58,8 +58,9 @@ class ChampsFragments : Fragment() {
 
         champsViewModel.championshipData.observe(viewLifecycleOwner,  { data->
             Log.d ("ChampsFragment", "onCreate: $data")
-            adapter.setChampionshipList(data)
+            adapter.setChampionshipList(data, filter)
         })
 
     }
+
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.championship.Championship
+import com.andersonpimentel.myapplication.data.models.championship.filterStatus
 import com.andersonpimentel.myapplication.ui.champs.ChampsAdapter.*
 import kotlinx.android.synthetic.main.championship_layout.view.*
 import java.util.*
@@ -25,26 +26,16 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChampsAdapterViewHolder, position: Int) {
-        if (
-            championships[position].status != "cancelled"
-        ) {
-            championships.sortBy { it.championship_start }
+            championships.sortByDescending { it.championship_start }
             holder.itemView.tv_championship_name.text = championships[position].name
-
-        } else {
-            Log.w("Cancelled Championship", "The championship was cancelled")
-            holder.itemView.card_championship.layoutParams.width = 0
-            holder.itemView.card_championship.layoutParams.height = 0
-            holder.itemView.card_championship.removeAllViews()
-        }
     }
 
     override fun getItemCount(): Int {
         return championships.size
     }
 
-    fun setChampionshipList(list: ArrayList<Championship>){
-        championships.addAll(list)
+    fun setChampionshipList(list: ArrayList<Championship>, filter: String){
+        championships.addAll(filterStatus(list, filter))
         notifyDataSetChanged()
     }
 

@@ -13,3 +13,26 @@ data class Championship(
     var current_subscriptions: Int,
     var faceit_url: String
 )
+
+fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList<Championship>{
+    val filteredArray = arrayListOf<Championship>()
+    inputArray.forEach {
+        if (it.status != "cancelled") {
+            when (status) {
+                "Upcoming" -> {
+                    if (it.status == "created") {
+                        filteredArray.add(it)
+                    }
+                }
+                "Ongoing" -> {
+                    filteredArray.add(it)
+                }
+                else -> {
+                    if (it.status == "finished")
+                        filteredArray.add(it)
+                }
+            }
+        }
+    }
+    return filteredArray
+}

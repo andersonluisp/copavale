@@ -69,7 +69,11 @@ class HomeFragment : Fragment() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return ChampsFragments()
+            return when(position) {
+                0 -> ChampsFragments("Upcoming")
+                1 -> ChampsFragments("Ongoing")
+                else -> ChampsFragments("Past")
+            }
             }
 
     }
