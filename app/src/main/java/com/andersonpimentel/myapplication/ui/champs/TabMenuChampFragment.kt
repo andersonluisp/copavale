@@ -1,4 +1,4 @@
-package com.andersonpimentel.myapplication.ui.home
+package com.andersonpimentel.myapplication.ui.champs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,25 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.andersonpimentel.myapplication.R
-import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.databinding.FragmentHomeBinding
-import com.andersonpimentel.myapplication.ui.champs.ChampsAdapter
-import com.andersonpimentel.myapplication.ui.champs.ChampsFragments
-import com.andersonpimentel.myapplication.ui.matches.MatchesFragment
+import com.andersonpimentel.myapplication.ui.home.HomeViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : Fragment() {
+class TabMenuChampFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var mhomeViewModel: HomeViewModel
-    private val champsAdapter: ChampsAdapter by lazy { ChampsAdapter() }
     private var _binding: FragmentHomeBinding? = null
-    var listChampionship = arrayListOf<Championship>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,7 +41,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    val listMenu = arrayListOf("Upcoming", "Ongoing", "Past")
+    private val listMenu = arrayListOf("Upcoming", "Ongoing", "Past")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
