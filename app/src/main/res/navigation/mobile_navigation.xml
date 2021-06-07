@@ -7,16 +7,38 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.andersonpimentel.myapplication.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.andersonpimentel.myapplication.ui.champs.TabMenuChampFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_tab_menu_matches"
+            app:destination="@id/nav_tab_menu_matches" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_tab_menu_matches"
+        android:name="com.andersonpimentel.myapplication.ui.matches.TabMenuMatchesFragment"
+        tools:layout="@layout/fragment_tab_menu_matches">
+        <argument android:name="championship_id"
+            android:defaultValue=""
+            app:argType="string"/>
+        <argument android:name="championship_name"
+            android:defaultValue=""
+            app:argType="string"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.andersonpimentel.myapplication.ui.matches.MatchesFragment"
-        tools:layout="@layout/fragment_matches" />
+        tools:layout="@layout/fragment_matches">
+    </fragment>
+
+
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.andersonpimentel.myapplication.ui.champs.ChampsFragments"
         tools:layout="@layout/fragment_champs" />
+
+
 </navigation>
