@@ -4,14 +4,14 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.data.models.championship.ChampionshipsList
 import com.andersonpimentel.myapplication.data.models.matches.Match
 import com.andersonpimentel.myapplication.data.models.matches.MatchesList
 import com.andersonpimentel.myapplication.data.repository.Repository
-import com.andersonpimentel.myapplication.ui.home.HomeFragment
-import com.andersonpimentel.myapplication.utils.ApiClientInstance
-import com.andersonpimentel.myapplication.utils.GetApiData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,25 +26,30 @@ class ChampsViewModel constructor(private val repository: Repository) : ViewMode
     private lateinit var champsFragment: ChampsFragments
 
     fun getChampionship(id: String, offset: String) {
-        val call = repository.getAllChamps(id, offset, "100")
-        call.enqueue(object : Callback<ChampionshipsList> {
-            override fun onResponse(
-                call: Call<ChampionshipsList>,
-                response: Response<ChampionshipsList>
-            ) {
-                for (i in 0 until response.body()!!.items.size) {
-                    listChampionship.add(response.body()!!.items[i])
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val call = repository.getAllChamps(id, offset, "100")
+            call.enqueue(object : Callback<ChampionshipsList> {
+                override fun onResponse(
+                    call: Call<ChampionshipsList>,
+                    response: Response<ChampionshipsList>
+                ) {
+                    for (i in 0 until response.body()!!.items.size) {
+                        listChampionship.add(response.body()!!.items[i])
+                    }
+                    championshipData.postValue(listChampionship)
+                    if (listChampionship.size == 100) {
+                        getChampionship(id, "100")
+                    }
                 }
-                championshipData.postValue(listChampionship)
-                if (listChampionship.size == 100) {
-                    getChampionship(id, "100")
+
+                override fun onFailure(call: Call<ChampionshipsList>, t: Throwable) {
+                    Toast.makeText(champsFragment.context, "Error reading JSON", Toast.LENGTH_LONG)
+                        .show()
                 }
-            }
-            override fun onFailure(call: Call<ChampionshipsList>, t: Throwable) {
-                Toast.makeText(champsFragment.context, "Error reading JSON", Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
+            })
+
+        }
     }
 }
 
