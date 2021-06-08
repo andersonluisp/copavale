@@ -1,5 +1,9 @@
 package com.andersonpimentel.myapplication.data.models.championship
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Championship(
     var championship_id: String,
     var name: String,
@@ -12,7 +16,7 @@ data class Championship(
     var slots: Int,
     var current_subscriptions: Int,
     var faceit_url: String
-)
+): Parcelable
 
 fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList<Championship>{
     val filteredArray = arrayListOf<Championship>()
@@ -20,12 +24,14 @@ fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList
         if (it.status != "cancelled") {
             when (status) {
                 "Upcoming" -> {
-                    if (it.status == "created") {
+                    if (it.status == "created" || it.status == "join" || it.status == "adjustment" ) {
                         filteredArray.add(it)
                     }
                 }
                 "Ongoing" -> {
-                    filteredArray.add(it)
+                    if (it.status == "started") {
+                        filteredArray.add(it)
+                    }
                 }
                 else -> {
                     if (it.status == "finished")

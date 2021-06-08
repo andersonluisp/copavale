@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.andersonpimentel.myapplication.R
@@ -12,11 +11,8 @@ import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.data.models.championship.filterStatus
 import com.andersonpimentel.myapplication.ui.champs.ChampsAdapter.*
 import kotlinx.android.synthetic.main.championship_layout.view.*
-import kotlinx.android.synthetic.main.fragment_champs.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.coroutines.coroutineContext
 
 class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
     private var championships = arrayListOf<Championship>()
@@ -40,8 +36,11 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
             holder.itemView.tv_start_date.text =
                 getShortDate(championships[position].championship_start)
         }
+
         holder.itemView.card_championship.setOnClickListener{
-            val direction = TabMenuChampFragmentDirections.actionNavHomeToNavTabMenuMatches(championships[position].championship_id, championships[position].name)
+            val direction = TabMenuChampFragmentDirections.actionNavHomeToNavTabMenuMatches(
+                championships[position]
+            )
             holder.itemView.findNavController().navigate(direction)
         }
 

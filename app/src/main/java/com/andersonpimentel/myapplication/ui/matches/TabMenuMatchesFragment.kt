@@ -10,7 +10,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.databinding.FragmentTabMenuMatchesBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_tab_menu_matches.view.*
 
 class TabMenuMatchesFragment : Fragment() {
@@ -27,11 +26,8 @@ class TabMenuMatchesFragment : Fragment() {
     ): View {
         _binding = FragmentTabMenuMatchesBinding.inflate(inflater, container, false)
 
-        println(args.championshipId)
-        println(args.championshipName)
-
         val view =  inflater.inflate(R.layout.fragment_tab_menu_matches, container, false)
-        view.tv_championship_name_tab_matches.text = args.championshipName
+        view.tv_championship_name_tab_matches.text = args.championshipDetails.name
 
         val root: View = binding.root
         return view
