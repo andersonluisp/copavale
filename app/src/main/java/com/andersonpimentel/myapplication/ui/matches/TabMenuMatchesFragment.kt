@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.championship.Championship
-import com.andersonpimentel.myapplication.databinding.ChampionshipLayoutBinding
 import com.andersonpimentel.myapplication.databinding.FragmentTabMenuMatchesBinding
 import com.andersonpimentel.myapplication.ui.champs.ChampsDetailFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -42,7 +41,9 @@ class TabMenuMatchesFragment : Fragment() {
         _binding = null
     }
 
-    private val listMenu = arrayListOf("Details", "Upcoming\n matches", "Ongoing\n matches", "Past\n matches")
+
+
+    private val listMenu = arrayListOf("Details", "Upcoming\n matches", "Ongoing\n matches", "Results")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,12 +53,19 @@ class TabMenuMatchesFragment : Fragment() {
         TabLayoutMediator(view.matches_tab_menu, view.match_viewpager){tab, position ->
             tab.text = listMenu[position]
         }.attach()
+
+        val status = args.championshipDetails.status
+        if (status == "finished" || status == "adjustement" || status == "started" ){
+            val tabLayout = view.matches_tab_menu
+            tabLayout.removeTabAt(1)
+            tabLayout.removeTabAt(2)
+        }
     }
 
 
 
     class FragmentTypeAdapter(fragment: Fragment, championship: Championship) : FragmentStateAdapter(fragment){
-        var selectedChampionship = championship
+        private val selectedChampionship = championship
 
         override fun getItemCount(): Int {
             return 4
@@ -66,9 +74,9 @@ class TabMenuMatchesFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             return when(position) {
                 0 -> ChampsDetailFragment(selectedChampionship)
-                1 -> MatchesFragment()
-                2 -> MatchesFragment()
-                else -> MatchesFragment()
+                1 -> MatchesFragment(selectedChampionship)
+                2 -> MatchesFragment(selectedChampionship)
+                else -> MatchesFragment(selectedChampionship)
             }
 
         }
