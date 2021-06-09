@@ -16,15 +16,35 @@ data class Championship(
     var slots: Int,
     var current_subscriptions: Int,
     var faceit_url: String
-): Parcelable
+): Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if(javaClass != other?.javaClass){
+            return false
+        }
+        other as Championship
+        if (championship_id != other.championship_id){
+            return false
+        }
+        if (name != other.name){
+            return false
+        }
+        if (status != other.status){
+            return false
+        }
+        if (faceit_url != other.faceit_url){
+            return false
+        }
+        return true
+    }
+}
 
-fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList<Championship>{
+fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList<Championship> {
     val filteredArray = arrayListOf<Championship>()
     inputArray.forEach {
         if (it.status != "cancelled") {
             when (status) {
                 "Upcoming" -> {
-                    if (it.status == "created" || it.status == "join" || it.status == "adjustment" ) {
+                    if (it.status == "created" || it.status == "join" || it.status == "adjustment") {
                         filteredArray.add(it)
                     }
                 }
