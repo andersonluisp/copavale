@@ -8,14 +8,18 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.andersonpimentel.myapplication.R
+import com.andersonpimentel.myapplication.data.models.championship.Championship
+import com.andersonpimentel.myapplication.databinding.ChampionshipLayoutBinding
 import com.andersonpimentel.myapplication.databinding.FragmentTabMenuMatchesBinding
+import com.andersonpimentel.myapplication.ui.champs.ChampsDetailFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_tab_menu_matches.view.*
 
 class TabMenuMatchesFragment : Fragment() {
 
-    private val args: TabMenuMatchesFragmentArgs by navArgs()
+    val args: TabMenuMatchesFragmentArgs by navArgs()
     private var _binding: FragmentTabMenuMatchesBinding? = null
+    lateinit var championshipList: Championship
 
 
     private val binding get() = _binding!!
@@ -43,7 +47,7 @@ class TabMenuMatchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.match_viewpager.adapter = FragmentTypeAdapter(this)
+        view.match_viewpager.adapter = FragmentTypeAdapter(this, args.championshipDetails)
 
         TabLayoutMediator(view.matches_tab_menu, view.match_viewpager){tab, position ->
             tab.text = listMenu[position]
@@ -52,13 +56,20 @@ class TabMenuMatchesFragment : Fragment() {
 
 
 
-    class FragmentTypeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment){
+    class FragmentTypeAdapter(fragment: Fragment, championship: Championship) : FragmentStateAdapter(fragment){
+        var selectedChampionship = championship
+
         override fun getItemCount(): Int {
             return 4
         }
 
         override fun createFragment(position: Int): Fragment {
-            return MatchesFragment()
+            return when(position) {
+                0 -> ChampsDetailFragment(selectedChampionship)
+                1 -> MatchesFragment()
+                2 -> MatchesFragment()
+                else -> MatchesFragment()
+            }
 
         }
 

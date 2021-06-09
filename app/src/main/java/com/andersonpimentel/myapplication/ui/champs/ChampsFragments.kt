@@ -19,6 +19,7 @@ class ChampsFragments(val filter: String) : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var champsViewModel: ChampsViewModel
     private val getApiService = GetApiData.getInstance()
+    private var listIsEmpty = true
 
     private var _binding: FragmentChampsBinding? = null
     val adapter = ChampsAdapter()
@@ -54,12 +55,15 @@ class ChampsFragments(val filter: String) : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
 
-        champsViewModel.getChampionship(championshipId, "0")
+        if (listIsEmpty == true) {
+            champsViewModel.getChampionship(championshipId, "0")
 
-        champsViewModel.championshipData.observe(viewLifecycleOwner,  { data->
-            Log.d ("ChampsFragment", "onCreate: $data")
-            adapter.setChampionshipList(data, filter)
-        })
+            champsViewModel.championshipData.observe(viewLifecycleOwner, { data ->
+                Log.d("ChampsFragment", "onCreate: $data")
+                adapter.setChampionshipList(data, filter)
+            })
+        }
+        listIsEmpty = false
 
     }
 
