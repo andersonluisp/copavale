@@ -10,14 +10,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
-    <TextView
-        android:id="@+id/teste"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Teste"
-        />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_championships"
         android:layout_width="match_parent"

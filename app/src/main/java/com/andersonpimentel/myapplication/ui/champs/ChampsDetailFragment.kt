@@ -1,7 +1,9 @@
 package com.andersonpimentel.myapplication.ui.champs
 
 import android.app.Application
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,8 +29,10 @@ class ChampsDetailFragment(
         view.tv_subscription_start.text = getShortDate(selectedChampionship.subscription_start)
         view.tv_subscription_ends.text = getShortDate(selectedChampionship.subscription_end)
         view.tv_status.text = selectedChampionship.status
+        view.bt_subscribe.isClickable = false
 
         if (selectedChampionship.status == "join"){
+            view.bt_subscribe.isClickable = true
             view.bt_subscribe.text = "INSCREVA-SE"
             //TODO "Make event click listener"
         }

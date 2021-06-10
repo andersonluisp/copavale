@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.databinding.FragmentMatchesBinding
 
-class MatchesFragment : Fragment() {
+class MatchesFragment(
+    val selectedChampionship: Championship
+) : Fragment() {
 
     private lateinit var matchesViewModel: MatchesViewModel
     private var _binding: FragmentMatchesBinding? = null
