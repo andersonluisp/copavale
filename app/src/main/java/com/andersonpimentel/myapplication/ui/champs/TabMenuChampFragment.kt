@@ -10,8 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.andersonpimentel.myapplication.R
+import com.andersonpimentel.myapplication.data.models.championship.Championship
+import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentHomeBinding
+import com.andersonpimentel.myapplication.ui.SharedViewModel
+import com.andersonpimentel.myapplication.ui.SharedViewModelFactory
 import com.andersonpimentel.myapplication.ui.home.HomeViewModel
+import com.andersonpimentel.myapplication.utils.GetApiData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -19,8 +24,9 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class TabMenuChampFragment : Fragment() {
 
-    private lateinit var mhomeViewModel: HomeViewModel
+    private lateinit var mSharedViewModel: SharedViewModel
     private var _binding: FragmentHomeBinding? = null
+    private val getApiService = GetApiData.getInstance()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,8 +37,8 @@ class TabMenuChampFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mhomeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        mSharedViewModel =
+            ViewModelProvider(this, SharedViewModelFactory(Repository(getApiService))).get(SharedViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 

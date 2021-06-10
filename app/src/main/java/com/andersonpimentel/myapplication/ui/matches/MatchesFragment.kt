@@ -1,22 +1,33 @@
 package com.andersonpimentel.myapplication.ui.matches
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.championship.Championship
+import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentMatchesBinding
+import com.andersonpimentel.myapplication.utils.GetApiData
+import kotlinx.android.synthetic.main.fragment_matches.view.*
 
 class MatchesFragment(
-    val selectedChampionship: Championship
+    val selectedChampionship: Championship,
+    val filter: String
 ) : Fragment() {
+
+    private lateinit var recyclerView: RecyclerView
+    private val getApiService = GetApiData.getInstance()
+    private var listIsEmpty = true
 
     private lateinit var matchesViewModel: MatchesViewModel
     private var _binding: FragmentMatchesBinding? = null
+    val adapter = MatchesAdapter()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,20 +39,35 @@ class MatchesFragment(
         savedInstanceState: Bundle?
     ): View? {
         matchesViewModel =
-            ViewModelProvider(this).get(MatchesViewModel::class.java)
+            ViewModelProvider(this, MatchesViewModelFactory(Repository(getApiService))).get(MatchesViewModel::class.java)
 
-        _binding = FragmentMatchesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val view =  inflater.inflate(R.layout.fragment_matches, container, false)
+        bindViews(view)
+        view.recycler_matches.adapter = adapter
 
-        val textView: TextView = binding.textGallery
-        matchesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun bindViews(view: View){
+        recyclerView = view.findViewById(R.id.recycler_matches)
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = adapter
+
+        matchesViewModel.getMatches(selectedChampionship.championship_id, "0")
+
+        matchesViewModel.matchesListData.observe(viewLifecycleOwner, { data ->
+            Log.d("ChampsFragment", "onCreate: $data")
+            adapter.setChampionshipList(data, filter)
+        })
+
+
     }
 }
