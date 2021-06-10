@@ -1,6 +1,5 @@
 package com.andersonpimentel.myapplication.ui.champs
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChampsAdapterViewHolder, position: Int) {
-        championships.sortByDescending { it.championship_start }
         holder.itemView.tv_championship_name.text = championships[position].name
 
         if (championships[position].status == "finished") {

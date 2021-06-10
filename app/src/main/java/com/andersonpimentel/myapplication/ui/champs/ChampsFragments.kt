@@ -23,7 +23,7 @@ class ChampsFragments(val filter: String) : Fragment() {
 
     private var _binding: FragmentChampsBinding? = null
     val adapter = ChampsAdapter()
-    val championshipId = "8848ca07-aa7c-445d-ab50-ab67eed7fa37"
+    val organizerId = "4f3dba1e-2f54-49b4-bfea-e03a7d345505"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,10 +56,10 @@ class ChampsFragments(val filter: String) : Fragment() {
         recyclerView.adapter = adapter
 
         if (listIsEmpty == true) {
-            champsViewModel.getChampionship(championshipId, "0")
+            //champsViewModel.getChampionship(organizerId, "0")
 
             champsViewModel.championshipData.observe(viewLifecycleOwner, { data ->
-                Log.d("ChampsFragment", "onCreate: $data")
+                //Log.d("ChampsFragment", "onCreate: $data")
                 adapter.setChampionshipList(data, filter)
             })
         }

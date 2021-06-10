@@ -26,16 +26,19 @@ fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList
                 "Upcoming" -> {
                     if (it.status == "created" || it.status == "join" || it.status == "adjustment" ) {
                         filteredArray.add(it)
+                        filteredArray.sortedBy { it.championship_start }
                     }
                 }
                 "Ongoing" -> {
                     if (it.status == "started") {
                         filteredArray.add(it)
+                        filteredArray.sortedBy { it.championship_start }
                     }
                 }
                 else -> {
                     if (it.status == "finished")
                         filteredArray.add(it)
+                    filteredArray.sortedByDescending { it.championship_start }
                 }
             }
         }

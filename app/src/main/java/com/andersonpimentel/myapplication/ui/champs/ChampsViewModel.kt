@@ -22,13 +22,19 @@ class ChampsViewModel constructor(private val repository: Repository) : ViewMode
     var championshipData = MutableLiveData<ArrayList<Championship>>()
     var listMatch = arrayListOf<Match>()
     var listChampionship = arrayListOf<Championship>()
+    private var controlOffset = 0
 
     private lateinit var champsFragment: ChampsFragments
 
+    val organizerId = "4f3dba1e-2f54-49b4-bfea-e03a7d345505"
+
+    init{
+        getChampionship(organizerId, controlOffset.toString())
+    }
+
     fun getChampionship(id: String, offset: String) {
         viewModelScope.launch(Dispatchers.IO) {
-
-            val call = repository.getAllChamps(id, offset, "100")
+            val call = repository.getAllChamps(id, controlOffset.toString(), "100")
             call.enqueue(object : Callback<ChampionshipsList> {
                 override fun onResponse(
                     call: Call<ChampionshipsList>,
@@ -38,8 +44,9 @@ class ChampsViewModel constructor(private val repository: Repository) : ViewMode
                         listChampionship.add(response.body()!!.items[i])
                     }
                     championshipData.postValue(listChampionship)
-                    if (listChampionship.size == 100) {
-                        getChampionship(id, "100")
+                    if (listChampionship.size == controlOffset + 100) {
+                        controlOffset += 100
+                        getChampionship(id, controlOffset.toString())
                     }
                 }
 
