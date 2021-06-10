@@ -18,8 +18,8 @@ interface GetApiData {
     fun getChampionships(@Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): Call<ChampionshipsList>
 
     @Headers("Authorization: Bearer 2f52d9e7-2f15-472e-9210-ce91616d214e")
-    @GET("https://open.faceit.com/data/v4/championships/{id}/matches?offset={offset}&limit=100")
-    fun getMatches(@Path("id",)id: String, @Path("offset")offset: String): Call<MatchesList>
+    @GET("https://open.faceit.com/data/v4/championships/{id}/matches")
+    fun getMatches(@Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): Call<MatchesList>
 
     companion object{
 
