@@ -1,6 +1,5 @@
-package com.andersonpimentel.myapplication.utils
+package com.andersonpimentel.myapplication.data
 
-import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.data.models.championship.ChampionshipsList
 import com.andersonpimentel.myapplication.data.models.matches.MatchesList
 import retrofit2.Call
@@ -28,7 +27,7 @@ interface GetApiData {
 
         fun getInstance() : GetApiData {
 
-            if (getApiService==null) {
+            if (getApiService ==null) {
                 val retrofit = Retrofit.Builder()
                     .baseUrl(ApiClientInstance.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

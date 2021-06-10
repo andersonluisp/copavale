@@ -1,4 +1,4 @@
-package com.andersonpimentel.myapplication.ui.champs
+package com.andersonpimentel.myapplication.ui.champs.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.data.models.championship.filterStatus
-import com.andersonpimentel.myapplication.ui.champs.ChampsAdapter.*
+import com.andersonpimentel.myapplication.ui.champs.TabMenuChampFragmentDirections
+import com.andersonpimentel.myapplication.ui.champs.adapter.ChampsAdapter.*
 import kotlinx.android.synthetic.main.championship_layout.view.*
 import java.util.*
 import kotlin.collections.ArrayList

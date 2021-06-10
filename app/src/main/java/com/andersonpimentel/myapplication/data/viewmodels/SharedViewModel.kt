@@ -11,7 +11,6 @@ import com.andersonpimentel.myapplication.data.models.matches.Match
 import com.andersonpimentel.myapplication.data.models.matches.MatchesList
 import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.ui.champs.ChampsFragments
-import com.andersonpimentel.myapplication.ui.champs.ChampsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call

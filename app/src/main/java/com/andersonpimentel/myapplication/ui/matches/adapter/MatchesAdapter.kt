@@ -1,4 +1,4 @@
-package com.andersonpimentel.myapplication.ui.matches
+package com.andersonpimentel.myapplication.ui.matches.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.matches.Match
 import com.andersonpimentel.myapplication.data.models.matches.filterMatchStatus
 import com.andersonpimentel.myapplication.data.models.matches.filterMatchesBye
-import com.andersonpimentel.myapplication.ui.matches.MatchesAdapter.*
+import com.andersonpimentel.myapplication.ui.matches.adapter.MatchesAdapter.*
 import kotlinx.android.synthetic.main.match_layout.view.*
 import java.util.*
 import kotlin.collections.ArrayList

@@ -13,7 +13,8 @@ import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentMatchesBinding
-import com.andersonpimentel.myapplication.utils.GetApiData
+import com.andersonpimentel.myapplication.ui.matches.adapter.MatchesAdapter
+import com.andersonpimentel.myapplication.data.GetApiData
 import kotlinx.android.synthetic.main.fragment_matches.view.*
 
 class MatchesFragment(

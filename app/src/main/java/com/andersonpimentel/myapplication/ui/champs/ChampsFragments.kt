@@ -1,7 +1,6 @@
 package com.andersonpimentel.myapplication.ui.champs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentChampsBinding
-import com.andersonpimentel.myapplication.utils.GetApiData
+import com.andersonpimentel.myapplication.ui.champs.adapter.ChampsAdapter
+import com.andersonpimentel.myapplication.data.GetApiData
 
 class ChampsFragments(val filter: String) : Fragment() {
 

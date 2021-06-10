@@ -1,6 +1,5 @@
-package com.andersonpimentel.myapplication.utils
+package com.andersonpimentel.myapplication.data
 
-import androidx.annotation.RestrictTo
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
