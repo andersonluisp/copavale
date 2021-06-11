@@ -4,7 +4,7 @@ import com.andersonpimentel.myapplication.data.GetApiData
 
 class Repository constructor(private val getApiData: GetApiData) {
 
-    fun getAllChamps(id: String, offset: String, limit: String) =
+    suspend fun getAllChamps(id: String, offset: String, limit: String) =
         getApiData.getChampionships(id, offset, limit)
 
     fun getAllMatches(id: String, offset: String, limit: String) =

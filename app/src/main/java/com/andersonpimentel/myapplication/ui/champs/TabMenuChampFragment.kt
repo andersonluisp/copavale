@@ -8,18 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.andersonpimentel.myapplication.data.repository.Repository
-import com.andersonpimentel.myapplication.databinding.FragmentHomeBinding
+import com.andersonpimentel.myapplication.databinding.FragmentTabMenuChampionshipsBinding
 import com.andersonpimentel.myapplication.ui.SharedViewModel
 import com.andersonpimentel.myapplication.ui.SharedViewModelFactory
 import com.andersonpimentel.myapplication.data.GetApiData
+import com.andersonpimentel.myapplication.data.models.championship.Championship
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_tab_menu_championships.*
+import kotlinx.android.synthetic.main.fragment_tab_menu_championships.view.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 
 class TabMenuChampFragment : Fragment() {
 
-    private lateinit var mSharedViewModel: SharedViewModel
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var mChampsViewModel: ChampsViewModel
+    private var _binding: FragmentTabMenuChampionshipsBinding? = null
     private val getApiService = GetApiData.getInstance()
+    private val listChampionship = arrayListOf<Championship>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,12 +36,14 @@ class TabMenuChampFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mSharedViewModel =
-            ViewModelProvider(this, SharedViewModelFactory(Repository(getApiService))).get(SharedViewModel::class.java)
+        mChampsViewModel =
+            ViewModelProvider(this, ChampsViewModelFactory(Repository(getApiService))).get(ChampsViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentTabMenuChampionshipsBinding.inflate(inflater, container, false)
 
         val root: View = binding.root
+
+
         return root
     }
 
@@ -49,25 +57,43 @@ class TabMenuChampFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.home_viewpager.adapter = FragmentTypeAdapter(this)
+        if(mChampsViewModel.listChampionship.isNullOrEmpty()){
+            progress_circular.visibility = View.VISIBLE
+            tv_loading_data.visibility = View.VISIBLE
+        CoroutineScope(IO).launch {
+            mChampsViewModel.getChampionship(mChampsViewModel.organizerId,mChampsViewModel.controlOffset.toString())
+            mChampsViewModel.championshipData.postValue(mChampsViewModel.listChampionship)
+            withContext(Main) {
+                progress_circular.visibility = View.GONE
+                tv_loading_data.visibility = View.GONE
+                view.home_viewpager.adapter = FragmentTypeAdapter(requireParentFragment(), mChampsViewModel.listChampionship)
+                TabLayoutMediator(view.home_tab_menu, view.home_viewpager){tab, position ->
+                    tab.text = listMenu[position]
+                }.attach()
+            }
+        }
+        } else{
+            view.home_viewpager.adapter = FragmentTypeAdapter(requireParentFragment(), mChampsViewModel.listChampionship)
+            TabLayoutMediator(view.home_tab_menu, view.home_viewpager){tab, position ->
+                tab.text = listMenu[position]
+            }.attach()
+        }
 
-        TabLayoutMediator(view.home_tab_menu, view.home_viewpager){tab, position ->
-            tab.text = listMenu[position]
-        }.attach()
+
     }
 
 
 
-    class FragmentTypeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment){
+    class FragmentTypeAdapter(fragment: Fragment, val championships: ArrayList<Championship>) : FragmentStateAdapter(fragment){
         override fun getItemCount(): Int {
             return 3
         }
 
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> ChampsFragments("Upcoming")
-                1 -> ChampsFragments("Ongoing")
-                else -> ChampsFragments("Past")
+                0 -> ChampsFragments("Upcoming", championships)
+                1 -> ChampsFragments("Ongoing", championships)
+                else -> ChampsFragments("Finished", championships)
             }
             }
 

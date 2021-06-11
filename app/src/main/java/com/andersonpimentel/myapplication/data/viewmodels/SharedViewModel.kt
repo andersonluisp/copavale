@@ -11,7 +11,10 @@ import com.andersonpimentel.myapplication.data.models.matches.Match
 import com.andersonpimentel.myapplication.data.models.matches.MatchesList
 import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.ui.champs.ChampsFragments
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,65 +27,21 @@ class SharedViewModel constructor(private val repository: Repository) : ViewMode
     var listMatch = arrayListOf<Match>()
     var listChampionship = arrayListOf<Championship>()
 
-    private lateinit var champsFragment: ChampsFragments
-
+    var controlOffset = 0
     val organizerId = "4f3dba1e-2f54-49b4-bfea-e03a7d345505"
 
     init{
-        //getChampionship(organizerId,"0")
+
     }
 
-    fun getChampionship(id: String, offset: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val call = repository.getAllChamps(id, offset, "100")
-            call.enqueue(object : Callback<ChampionshipsList> {
-                override fun onResponse(
-                    call: Call<ChampionshipsList>,
-                    response: Response<ChampionshipsList>
-                ) {
-                    for (i in 0 until response.body()!!.items.size) {
-                        listChampionship.add(response.body()!!.items[i])
-                    }
-                    sharedChampionshipData.postValue(listChampionship)
-                    if (listChampionship.size == 100) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 200) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 300) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 400) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 500) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 600) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 700) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 800) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 900) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                    if (listChampionship.size == 1000) {
-                        getChampionship(id, listChampionship.size.toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<ChampionshipsList>, t: Throwable) {
-                    Toast.makeText(champsFragment.context, "Error reading JSON", Toast.LENGTH_LONG)
-                        .show()
-                }
-            })
-
+    suspend fun getChampionship(id: String, offset: String) {
+        val call = repository.getAllChamps(id, offset, "100")
+        for (i in 0 until call.items.size) {
+            listChampionship.add(call.items[i])
+        }
+        if (listChampionship.size == controlOffset + 100) {
+            controlOffset += 100
+            getChampionship(id, controlOffset.toString())
         }
     }
 }

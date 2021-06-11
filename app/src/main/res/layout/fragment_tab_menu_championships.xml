@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.champs.TabMenuChampFragment"
+    android:background="#1a1a1d"
+    >
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/linear_teste"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.champs.TabMenuChampFragment">
+    >
 
     <TextView
         android:id="@+id/tv_championships"
@@ -18,6 +27,7 @@
         android:textAppearance="@style/tab_layout_text"
         android:textColor="#fff"
         />
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/home_tab_menu"
@@ -45,3 +55,27 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:indeterminateTint="#FF7A33"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/tv_loading_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading Data"
+        android:textAppearance="@style/toolbar_text"
+        app:layout_constraintTop_toBottomOf="@id/progress_circular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

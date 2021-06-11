@@ -5,16 +5,14 @@ import com.andersonpimentel.myapplication.data.models.matches.MatchesList
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface GetApiData {
 
     @Headers("Authorization: Bearer 2f52d9e7-2f15-472e-9210-ce91616d214e")
     @GET("https://open.faceit.com/data/v4/organizers/{id}/championships")
-    fun getChampionships(@Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): Call<ChampionshipsList>
+    suspend fun getChampionships(
+        @Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): ChampionshipsList
 
     @Headers("Authorization: Bearer 2f52d9e7-2f15-472e-9210-ce91616d214e")
     @GET("https://open.faceit.com/data/v4/championships/{id}/matches")

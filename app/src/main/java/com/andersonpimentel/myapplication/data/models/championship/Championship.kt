@@ -35,10 +35,17 @@ fun filterStatus(inputArray: ArrayList<Championship>, status: String): ArrayList
                         filteredArray.sortedBy { it.championship_start }
                     }
                 }
-                else -> {
-                    if (it.status == "finished")
+                "Past" -> {
+                    if (it.status == "finished") {
                         filteredArray.add(it)
-                    filteredArray.sortedByDescending { it.championship_start }
+                        filteredArray.sortedByDescending { it.subscription_start }
+                    }
+                }
+                else -> {
+                    if (it.status == "finished") {
+                        filteredArray.add(it)
+                        filteredArray.sortedByDescending { it.subscription_start }
+                    }
                 }
             }
         }
