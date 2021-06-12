@@ -11,7 +11,8 @@ data class Match(
     var teams: Teams,
     var started_at: Long,
     var status: String,
-    var results: Results
+    var results: Results,
+    var best_of: Int
 )
 
 fun filterMatchStatus(inputArray: ArrayList<Match>, status: String): ArrayList<Match>{
