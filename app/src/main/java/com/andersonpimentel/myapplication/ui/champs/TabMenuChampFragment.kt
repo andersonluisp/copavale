@@ -25,7 +25,6 @@ class TabMenuChampFragment : Fragment() {
     private lateinit var mChampsViewModel: ChampsViewModel
     private var _binding: FragmentTabMenuChampionshipsBinding? = null
     private val getApiService = GetApiData.getInstance()
-    private val listChampionship = arrayListOf<Championship>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.

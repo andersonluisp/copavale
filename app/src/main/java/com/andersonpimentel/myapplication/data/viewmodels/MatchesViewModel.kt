@@ -20,33 +20,17 @@ class MatchesViewModel(private val repository: Repository) : ViewModel() {
     var listChampionship = arrayListOf<Championship>()
 
     private lateinit var matchesFragment: MatchesFragment
-    private var controlOffset = 0
+    var controlOffset = 0
 
-    fun getMatches(id: String, offset: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val call = repository.getAllMatches(id, offset, "100")
-            call.enqueue(object : Callback<MatchesList> {
-                override fun onResponse(
-                    call: Call<MatchesList>,
-                    response: Response<MatchesList>
-                ) {
-                    for (i in 0 until response.body()!!.items.size) {
-                        listMatch.add(response.body()!!.items[i])
-                    }
-                    matchesListData.postValue(listMatch)
-                    if (listMatch.size == controlOffset + 100) {
-                        controlOffset += 100
-                        getMatches(id, controlOffset.toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<MatchesList>, t: Throwable) {
-                    Toast.makeText(matchesFragment.context, "Error reading JSON", Toast.LENGTH_LONG)
-                        .show()
-                }
-            })
-
+    suspend fun getMatches(id: String, offset: String) {
+        val call = repository.getAllMatches(id, offset, "100")
+        for (i in 0 until call.items.size) {
+            listMatch.add(call.items[i])
+        }
+        matchesListData.postValue(listMatch)
+        if (listMatch.size == controlOffset + 100) {
+            controlOffset += 100
+            getMatches(id, controlOffset.toString())
         }
     }
 }

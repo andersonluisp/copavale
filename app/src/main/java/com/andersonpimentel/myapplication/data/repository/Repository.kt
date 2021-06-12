@@ -7,7 +7,7 @@ class Repository constructor(private val getApiData: GetApiData) {
     suspend fun getAllChamps(id: String, offset: String, limit: String) =
         getApiData.getChampionships(id, offset, limit)
 
-    fun getAllMatches(id: String, offset: String, limit: String) =
+    suspend fun getAllMatches(id: String, offset: String, limit: String) =
         getApiData.getMatches(id, offset, limit)
 
 }

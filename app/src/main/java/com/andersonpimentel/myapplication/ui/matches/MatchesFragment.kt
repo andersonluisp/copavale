@@ -15,10 +15,12 @@ import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentMatchesBinding
 import com.andersonpimentel.myapplication.ui.matches.adapter.MatchesAdapter
 import com.andersonpimentel.myapplication.data.GetApiData
+import com.andersonpimentel.myapplication.data.models.matches.Match
 import kotlinx.android.synthetic.main.fragment_matches.view.*
 
 class MatchesFragment(
     val selectedChampionship: Championship,
+    val listMatches: ArrayList<Match>,
     val filter: String
 ) : Fragment() {
 
@@ -62,12 +64,8 @@ class MatchesFragment(
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = adapter
 
-        matchesViewModel.getMatches(selectedChampionship.championship_id, "0")
+        adapter.setChampionshipList(listMatches, filter)
 
-        matchesViewModel.matchesListData.observe(viewLifecycleOwner, { data ->
-            Log.d("ChampsFragment", "onCreate: $data")
-            adapter.setChampionshipList(data, filter)
-        })
 
 
     }

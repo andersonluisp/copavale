@@ -16,7 +16,8 @@ interface GetApiData {
 
     @Headers("Authorization: Bearer 2f52d9e7-2f15-472e-9210-ce91616d214e")
     @GET("https://open.faceit.com/data/v4/championships/{id}/matches")
-    fun getMatches(@Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): Call<MatchesList>
+    suspend fun getMatches(
+        @Path("id",)id: String, @Query("offset")offset: String, @Query("limit")limit: String): MatchesList
 
     companion object{
 
