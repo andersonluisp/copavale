@@ -10,7 +10,8 @@ data class Match(
     var chat_room_id: String,
     var teams: Teams,
     var started_at: Long,
-    var status: String
+    var status: String,
+    var results: Results
 )
 
 fun filterMatchStatus(inputArray: ArrayList<Match>, status: String): ArrayList<Match>{

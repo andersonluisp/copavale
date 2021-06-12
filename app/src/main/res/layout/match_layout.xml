@@ -48,13 +48,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="X"
-                android:textColor="#fff"
-                android:textSize="30sp"
+                android:textColor="#B3FFFFFF"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_result_team1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="16"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tv_versus"
+                app:layout_constraintEnd_toStartOf="@id/tv_versus"
+                app:layout_constraintStart_toEndOf="@id/iv_team1_logo"
+                app:layout_constraintTop_toTopOf="@id/tv_versus" />
+
+            <TextView
+                android:id="@+id/tv_result_team2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="16"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tv_versus"
+                app:layout_constraintEnd_toStartOf="@id/iv_team2_logo"
+                app:layout_constraintStart_toEndOf="@id/tv_versus"
+                app:layout_constraintTop_toTopOf="@id/tv_versus" />
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/iv_team2_logo"
