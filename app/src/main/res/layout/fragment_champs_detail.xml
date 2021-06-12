@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.champs.ChampsDetailFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1a1a1d"
+    >
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:id="@+id/detail_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:background="#1a1a1d"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    >
 
     <View
         android:layout_width="match_parent"
@@ -229,18 +241,21 @@
         />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+</androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginTop="20dp"
         android:id="@+id/bt_subscribe"
-        android:layout_width="220dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="#FF7A33"
         android:text="INSCRIÇÕES \n ENCERRADAS"
         android:fontFamily="@font/play_bold"
         android:textSize="20dp"
         android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/detail_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>

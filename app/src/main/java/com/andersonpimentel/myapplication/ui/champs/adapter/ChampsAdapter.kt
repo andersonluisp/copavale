@@ -30,10 +30,13 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
         if (championships[position].status == "finished") {
             holder.itemView.tv_status_champ.text = "Finished"
             holder.itemView.tv_start_date.visibility = View.GONE
+            holder.itemView.tv_start_hour.visibility = View.GONE
         } else {
             holder.itemView.tv_status_champ.text = "Começa"
             holder.itemView.tv_start_date.text =
-                getShortDate(championships[position].championship_start)
+                parseTimestampToDate(championships[position].championship_start)
+            holder.itemView.tv_start_hour.text =
+                parseTimestampToHour(championships[position].championship_start)
         }
 
         holder.itemView.card_championship.setOnClickListener{
@@ -54,7 +57,7 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun getShortDate(ts:Long?):String{
+    fun parseTimestampToDateHour(ts:Long?):String{
         if(!(ts != null || ts == 0L)) return ""
         //Get instance of calendar
         val calendar = Calendar.getInstance(Locale.getDefault())
@@ -62,5 +65,25 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
         calendar.timeInMillis = ts - 3 * 3600000
         //return formatted date
         return android.text.format.DateFormat.format("dd/MM/yyy HH:mm", calendar).toString()
+    }
+
+    fun parseTimestampToDate(ts:Long?):String{
+        if(!(ts != null || ts == 0L)) return ""
+        //Get instance of calendar
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        //get current date from ts
+        calendar.timeInMillis = ts - 3 * 3600000
+        //return formatted date
+        return android.text.format.DateFormat.format("dd/MM/yyy", calendar).toString()
+    }
+
+    fun parseTimestampToHour(ts:Long?):String{
+        if(!(ts != null || ts == 0L)) return ""
+        //Get instance of calendar
+        val calendar = Calendar.getInstance(Locale.getDefault())
+        //get current date from ts
+        calendar.timeInMillis = ts - 3 * 3600000
+        //return formatted date
+        return android.text.format.DateFormat.format("HH:mm", calendar).toString()
     }
 }
