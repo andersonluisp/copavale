@@ -1,5 +1,7 @@
 package com.andersonpimentel.myapplication.ui.champs.adapter
 
+import android.content.res.Resources
+import android.content.res.loader.ResourcesLoader
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,11 +30,11 @@ class ChampsAdapter: RecyclerView.Adapter<ChampsAdapterViewHolder>() {
         holder.itemView.tv_championship_name.text = championships[position].name
 
         if (championships[position].status == "finished") {
-            holder.itemView.tv_status_champ.text = "Finished"
+            holder.itemView.tv_status_champ.text = holder.itemView.context.getString(R.string.finished)
             holder.itemView.tv_start_date.visibility = View.GONE
             holder.itemView.tv_start_hour.visibility = View.GONE
         } else {
-            holder.itemView.tv_status_champ.text = "Começa"
+            holder.itemView.tv_status_champ.text = holder.itemView.context.getString(R.string.starts)
             holder.itemView.tv_start_date.text =
                 parseTimestampToDate(championships[position].championship_start)
             holder.itemView.tv_start_hour.text =

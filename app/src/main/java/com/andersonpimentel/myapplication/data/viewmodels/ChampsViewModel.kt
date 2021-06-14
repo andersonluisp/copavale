@@ -24,8 +24,6 @@ class ChampsViewModel constructor(private val repository: Repository) : ViewMode
     var listChampionship = arrayListOf<Championship>()
     var controlOffset = 0
 
-    private lateinit var champsFragment: ChampsFragments
-
     val organizerId = "4f3dba1e-2f54-49b4-bfea-e03a7d345505"
 
     init{

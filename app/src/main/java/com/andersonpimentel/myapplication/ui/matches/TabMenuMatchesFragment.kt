@@ -31,8 +31,8 @@ class TabMenuMatchesFragment : Fragment() {
     private lateinit var mMatchesViewModel: MatchesViewModel
     private val getApiService = GetApiData.getInstance()
 
-
     private val binding get() = _binding!!
+    private var listMenu = arrayListOf<String?>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +42,12 @@ class TabMenuMatchesFragment : Fragment() {
 
         _binding = FragmentTabMenuMatchesBinding.inflate(inflater, container, false)
 
-
-
+        listMenu = arrayListOf(
+            getString(R.string.details),
+            getString(R.string.upcoming_matches),
+            getString(R.string.ongoing_matches),
+            getString(R.string.results)
+        )
 
         val view = inflater.inflate(R.layout.fragment_tab_menu_matches, container, false)
         view.tv_championship_name_tab_matches.text = args.championshipDetails.name
@@ -58,7 +62,7 @@ class TabMenuMatchesFragment : Fragment() {
     }
 
 
-    var listMenu = arrayListOf("Details", "Upcoming\n matches", "Ongoing\n matches", "Results")
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,13 +79,13 @@ class TabMenuMatchesFragment : Fragment() {
                     val status = args.championshipDetails.status
                     when (status) {
                         "finished" -> {
-                            listMenu = arrayListOf("Details", "Results")
+                            listMenu = arrayListOf(getString(R.string.details), getString(R.string.results))
                             TabLayoutMediator(view.matches_tab_menu, view.match_viewpager) { tab, position ->
                                 tab.text = listMenu[position]
                             }.attach()
                         }
                         "adjustement" -> {
-                            listMenu = arrayListOf("Details", "Upcoming\n matches")
+                            listMenu = arrayListOf(getString(R.string.details), getString(R.string.upcoming_matches))
                             TabLayoutMediator(view.matches_tab_menu, view.match_viewpager) { tab, position ->
                                 tab.text = listMenu[position]
                             }.attach()

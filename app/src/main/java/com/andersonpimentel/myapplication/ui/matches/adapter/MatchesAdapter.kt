@@ -34,16 +34,10 @@ class MatchesAdapter: RecyclerView.Adapter<MatchesAdapterViewHolder>() {
             }
             matchesList[position].status == "FINISHED" -> {
                 holder.itemView.tv_date.text = getShortDate(matchesList[position].started_at)
-                if (matchesList[position].best_of != 1){
                 holder.itemView.tv_result_team1.text = matchesList[position].results.score.faction1.toString()
                 holder.itemView.tv_result_team2.text = matchesList[position].results.score.faction2.toString()
                 holder.itemView.tv_result_team1.visibility = View.VISIBLE
                 holder.itemView.tv_result_team2.visibility = View.VISIBLE
-                } else {
-
-                    holder.itemView.tv_result_team1.visibility = View.VISIBLE
-                    holder.itemView.tv_result_team2.visibility = View.VISIBLE
-                }
             }
             else -> {
                 holder.itemView.tv_date.text = getShortDate(matchesList[position].scheduled_at)

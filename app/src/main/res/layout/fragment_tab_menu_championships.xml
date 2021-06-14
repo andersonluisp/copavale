@@ -10,7 +10,7 @@
     >
 
 <androidx.appcompat.widget.LinearLayoutCompat
-    android:id="@+id/linear_teste"
+    android:id="@+id/linear_tab_menu_championships"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="#1a1a1d"
         android:paddingTop="5dp"
-        android:text="CHAMPIONSHIPS"
+        android:text="@string/championships"
         android:gravity="center"
         android:textAppearance="@style/tab_layout_text"
         android:textColor="#fff"
@@ -72,7 +72,7 @@
         android:id="@+id/tv_loading_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loading Data"
+        android:text="@string/loading_championships"
         android:textAppearance="@style/toolbar_text"
         app:layout_constraintTop_toBottomOf="@id/progress_circular"
         app:layout_constraintStart_toStartOf="parent"

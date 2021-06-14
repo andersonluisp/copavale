@@ -12,4 +12,23 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="starts">Starts</string>
+    <string name="status">STATUS</string>
+    <string name="about_this_championship">ABOUT THIS \nTORNAMENT</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="registration_starts">REGISTRATION \nSTARTS</string>
+    <string name="registration_ends">REGISTRATION \nENDS</string>
+    <string name="registration_closed">REGISTRATION CLOSED</string>
+    <string name="join_tournament">JOIN TOURNAMENT</string>
+    <string name="loading_championships">Loading Championships</string>
+    <string name="championships">CHAMPIONSHIPS</string>
+    <string name="loading_data">Loading Data</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="past">Past</string>
+    <string name="details">Details</string>
+    <string name="upcoming_matches">Upcoming \nMatches</string>
+    <string name="ongoing_matches">Ongoing \nMatches</string>
+    <string name="results">Results</string>
+    <string name="finished">Finished</string>
 </resources>

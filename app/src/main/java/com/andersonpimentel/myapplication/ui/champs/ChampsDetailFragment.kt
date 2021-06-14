@@ -2,6 +2,7 @@ package com.andersonpimentel.myapplication.ui.champs
 
 import android.app.Application
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
@@ -33,8 +34,9 @@ class ChampsDetailFragment(
 
         if (selectedChampionship.status == "join"){
             view.bt_subscribe.isClickable = true
-            view.bt_subscribe.text = "INSCREVA-SE"
-            //TODO "Make event click listener"
+            view.bt_subscribe.setBackgroundColor(resources.getColor(R.color.orange))
+            view.bt_subscribe.text = getString(R.string.join_tournament)
+            //TODO "Make event click listener button"
         }
 
 

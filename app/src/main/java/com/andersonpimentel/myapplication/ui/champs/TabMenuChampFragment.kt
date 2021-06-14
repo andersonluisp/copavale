@@ -1,24 +1,28 @@
 package com.andersonpimentel.myapplication.ui.champs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.andersonpimentel.myapplication.R
 import com.andersonpimentel.myapplication.data.repository.Repository
 import com.andersonpimentel.myapplication.databinding.FragmentTabMenuChampionshipsBinding
 import com.andersonpimentel.myapplication.ui.SharedViewModel
 import com.andersonpimentel.myapplication.ui.SharedViewModelFactory
 import com.andersonpimentel.myapplication.data.GetApiData
 import com.andersonpimentel.myapplication.data.models.championship.Championship
+import com.andersonpimentel.myapplication.ui.matches.TabMenuMatchesFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_tab_menu_championships.*
 import kotlinx.android.synthetic.main.fragment_tab_menu_championships.view.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import java.lang.Exception
 
 class TabMenuChampFragment : Fragment() {
 
@@ -29,7 +33,7 @@ class TabMenuChampFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    private var listMenu = arrayListOf<String?>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +46,8 @@ class TabMenuChampFragment : Fragment() {
 
         val root: View = binding.root
 
+        listMenu = arrayListOf(getString(R.string.upcoming), getString(R.string.ongoing), getString(R.string.past))
+
 
         return root
     }
@@ -51,7 +57,6 @@ class TabMenuChampFragment : Fragment() {
         _binding = null
     }
 
-    private val listMenu = arrayListOf("Upcoming", "Ongoing", "Past")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,16 +64,26 @@ class TabMenuChampFragment : Fragment() {
         if(mChampsViewModel.listChampionship.isNullOrEmpty()){
             progress_circular.visibility = View.VISIBLE
             tv_loading_data.visibility = View.VISIBLE
+
         CoroutineScope(IO).launch {
-            mChampsViewModel.getChampionship(mChampsViewModel.organizerId,mChampsViewModel.controlOffset.toString())
-            mChampsViewModel.championshipData.postValue(mChampsViewModel.listChampionship)
-            withContext(Main) {
-                progress_circular.visibility = View.GONE
-                tv_loading_data.visibility = View.GONE
-                view.home_viewpager.adapter = FragmentTypeAdapter(requireParentFragment(), mChampsViewModel.listChampionship)
-                TabLayoutMediator(view.home_tab_menu, view.home_viewpager){tab, position ->
-                    tab.text = listMenu[position]
-                }.attach()
+            withTimeoutOrNull(20000){
+                try{
+                mChampsViewModel.getChampionship(mChampsViewModel.organizerId,mChampsViewModel.controlOffset.toString())
+                mChampsViewModel.championshipData.postValue(mChampsViewModel.listChampionship)
+                } catch(e: Exception){
+                    Log.e("Timeout to get API data", "$e")
+                }
+                withContext(Main) {
+                    progress_circular.visibility = View.GONE
+                    tv_loading_data.visibility = View.GONE
+                    view.home_viewpager.adapter = TabMenuChampFragment.FragmentTypeAdapter(
+                        requireParentFragment(),
+                        mChampsViewModel.listChampionship
+                    )
+                    TabLayoutMediator(view.home_tab_menu, view.home_viewpager){tab, position ->
+                        tab.text = listMenu[position]
+                    }.attach()
+                }
             }
         }
         } else{
