@@ -71,7 +71,7 @@ class TabMenuChampFragment : Fragment() {
                 mChampsViewModel.getChampionship(mChampsViewModel.organizerId,mChampsViewModel.controlOffset.toString())
                 mChampsViewModel.championshipData.postValue(mChampsViewModel.listChampionship)
                 } catch(e: Exception){
-                    Log.e("Timeout to get API data", "$e")
+                    Log.e("Timed out to get API", "$e")
                 }
                 withContext(Main) {
                     progress_circular.visibility = View.GONE

@@ -253,7 +253,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#757070"
+        android:backgroundTint="@color/orange"
         android:text="@string/registration_closed"
         android:fontFamily="@font/play_bold"
         android:textSize="20sp"
