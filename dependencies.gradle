@@ -87,10 +87,5 @@ ext {
     modules = [
             app: ":app",
             login: ":features:login",
-            data: ":data",
-            common: ":common",
-            uicomponents: ":uicomponents",
-            domain: ":domain",
-            home: ":features:home"
     ]
 }
