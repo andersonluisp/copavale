@@ -1,0 +1,96 @@
+ext {
+    minSdk = 23
+    targetSdk = 32
+    compileSdk = 32
+    jvmTarget = "1.8"
+
+    kotlinVersion = '1.6.0'
+    gradleVersion = '7.0.3'
+    lifeCycleVersion = '2.4.0'
+    navVersion = '2.4.2'
+
+    ktxVersion = '1.7.0'
+    appCompatVersion = '1.4.0'
+    materialVersion = '1.4.0'
+    constraintLayoutVersion = '2.1.4'
+    coroutineVersion = '1.3.9'
+
+    glideVersion = '4.12.0'
+    gsonVersion = '2.8.9'
+    koinVersion = '3.2.0'
+    retrofitVersion = '2.9.0'
+    roomVersion = '2.3.0'
+    loggingInterceptorVersion = '4.10.0'
+
+    skeletonVersion = '4.0.0'
+
+    //Test
+    junitVersion = '4.13.2'
+    mockkVersion = '1.10.2'
+    extJunitVersion = '1.1.3'
+    truthVersion = '1.1.3'
+    espressoVersion = '3.4.0'
+    runnerVersion = '1.4.0'
+    androidCoreVersion = '2.1.0'
+
+    dependencies = [
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            ktx: "androidx.core:core-ktx:$ktxVersion",
+            appCompat: "androidx.appcompat:appcompat:$appCompatVersion",
+            coroutinesCore: "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion",
+            coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion",
+            lifecycle: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion",
+            material: "com.google.android.material:material:$materialVersion",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            navigationFragment: "androidx.navigation:navigation-fragment-ktx:$navVersion",
+            navigationUi: "androidx.navigation:navigation-fragment-ktx:$navVersion",
+            navigationUiKtx: "androidx.navigation:navigation-ui-ktx:$navVersion",
+            navigationFeatures: "androidx.navigation:navigation-dynamic-features-fragment:$navVersion",
+            skeleton: "com.faltenreich:skeletonlayout:$skeletonVersion",
+
+            //Koin
+            koin: "io.insert-koin:koin-android:$koinVersion",
+            koinCore: "io.insert-koin:koin-core:$koinVersion",
+            koinScope: "io.insert-koin:koin-android-scope:$koinVersion",
+            koinViewModel: "io.insert-koin:koin-android-viewmodel:$koinVersion",
+
+            //Retrofit
+            retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            gson: "com.google.code.gson:gson:$gsonVersion",
+            loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion",
+
+            //Room
+            room: "androidx.room:room-runtime:$roomVersion",
+            roomCompiler: "androidx.room:room-compiler:$roomVersion",
+            roomArch: "android.arch.persistence.room:runtime:$roomVersion",
+            roomKtx: "androidx.room:room-ktx:$roomVersion",
+
+            //Glide
+            glide: "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler: "com.github.bumptech.glide:compiler:$glideVersion",
+    ]
+
+    testDependencies = [
+            junit: "junit:junit:$junitVersion",
+            extJunit: "androidx.test.ext:junit:$extJunitVersion",
+            espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
+            koinTest: "org.koin:koin-test:$koinVersion",
+            truth: "com.google.truth:truth:$truthVersion",
+            truthJava: "com.google.truth.extensions:truth-java8-extension:$truthVersion",
+            coroutinesTest: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion",
+            mockk: "io.mockk:mockk:$mockkVersion",
+            runner: "androidx.test:runner:$runnerVersion",
+            androidCore: "androidx.arch.core:core-testing:$androidCoreVersion"
+    ]
+
+    modules = [
+            app: ":app",
+            login: ":features:login",
+            data: ":data",
+            common: ":common",
+            uicomponents: ":uicomponents",
+            domain: ":domain",
+            home: ":features:home"
+    ]
+}
