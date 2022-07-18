@@ -8,6 +8,7 @@ ext {
     gradleVersion = '7.0.3'
     lifeCycleVersion = '2.4.0'
     navVersion = '2.4.2'
+    androidBrowserVersion = '1.4.0'
 
     ktxVersion = '1.7.0'
     appCompatVersion = '1.4.0'
@@ -47,6 +48,7 @@ ext {
             navigationUiKtx: "androidx.navigation:navigation-ui-ktx:$navVersion",
             navigationFeatures: "androidx.navigation:navigation-dynamic-features-fragment:$navVersion",
             skeleton: "com.faltenreich:skeletonlayout:$skeletonVersion",
+            androidBrowser: "androidx.browser:browser:$androidBrowserVersion",
 
             //Koin
             koin: "io.insert-koin:koin-android:$koinVersion",

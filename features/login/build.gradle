@@ -40,6 +40,8 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
     def modules = rootProject.ext.modules
 
+
+    implementation dependencies.androidBrowser
     implementation dependencies.ktx
     implementation dependencies.appCompat
     implementation dependencies.material
@@ -55,6 +57,7 @@ dependencies {
     implementation dependencies.retrofit
     implementation dependencies.retrofitGsonConverter
     implementation dependencies.gson
+    implementation dependencies.loggingInterceptor
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso
