@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 rootProject.name = "Copa Vale"
 include ':app'
 include ':features:login'
+include ':baseviewmodel'
