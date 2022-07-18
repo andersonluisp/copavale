@@ -5,6 +5,7 @@ import com.andersonpimentel.faceitdata.login.data.datasource.LoginDataStub
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginLocalDataSource
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginRemoteDataSource
 import com.andersonpimentel.faceitdata.login.data.repository.LoginRepositoryImpl
+import com.andersonpimentel.faceitdata.login.domain.repository.LoginRepository
 import com.andersonpimentel.faceitdata.login.util.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +30,7 @@ val loginDataModule = module {
 
     factory { LoginRemoteDataSource(service = get()) }
 
-    factory { LoginRepositoryImpl(
+    factory<LoginRepository> { LoginRepositoryImpl(
         loginLocalDataSource = get(),
         loginRemoteDataSource = get()
     ) }

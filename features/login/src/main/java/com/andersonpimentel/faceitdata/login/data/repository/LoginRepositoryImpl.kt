@@ -4,6 +4,7 @@ import android.util.Log
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginLocalDataSource
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginRemoteDataSource
 import com.andersonpimentel.faceitdata.login.data.model.UserTokenResponse
+import com.andersonpimentel.faceitdata.login.domain.repository.LoginRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +18,15 @@ class LoginRepositoryImpl(
     private val loginRemoteDataSource: LoginRemoteDataSource,
     private val loginLocalDataSource: LoginLocalDataSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
+): LoginRepository {
 
-    suspend fun getUserData(): Flow<UserTokenResponse> {
+    override fun saveLoginCode(code: String) {
+        CoroutineScope(dispatcher).launch {
+            loginLocalDataSource.saveCodeLogin(code)
+        }
+    }
+
+    override suspend fun getUserData(): Flow<UserTokenResponse> {
         return withContext(dispatcher){
             flow {
                 if (loginLocalDataSource.getUserData() != null) {
@@ -49,12 +56,6 @@ class LoginRepositoryImpl(
             } else {
                 Log.d("teste", response.errorBody().toString())
             }
-        }
-    }
-
-    fun saveLoginCode(code: String) {
-        CoroutineScope(dispatcher).launch {
-            loginLocalDataSource.saveCodeLogin(code)
         }
     }
 
