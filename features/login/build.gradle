@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.library'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -40,6 +41,7 @@ dependencies {
     def testDependencies = rootProject.ext.testDependencies
     def modules = rootProject.ext.modules
 
+    implementation project(modules.baseviewmodel)
 
     implementation dependencies.androidBrowser
     implementation dependencies.ktx
@@ -58,6 +60,9 @@ dependencies {
     implementation dependencies.retrofitGsonConverter
     implementation dependencies.gson
     implementation dependencies.loggingInterceptor
+    implementation dependencies.room
+    kapt dependencies.roomCompiler
+    implementation dependencies.roomKtx
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso

@@ -2,12 +2,9 @@ package com.andersonpimentel.faceitdata.login.presentation.loginActivity.activit
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.pm.PackageManager.*
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -17,6 +14,14 @@ import com.andersonpimentel.faceitdata.login.presentation.loginActivity.viewmode
 import com.andersonpimentel.faceitdata.login.util.Constants
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.pm.PackageManager.NameNotFoundException
+import android.util.AttributeSet
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
+import com.andersonpimentel.faceitdata.baseviewmodel.extension.onAction
+import com.andersonpimentel.faceitdata.baseviewmodel.extension.onStateChange
+import com.andersonpimentel.faceitdata.login.presentation.loginActivity.action.LoginActivityAction
+import com.andersonpimentel.faceitdata.login.presentation.loginActivity.state.LoginActivityState
 
 private const val CHROME_PACKAGE = "com.android.chrome"
 
@@ -28,31 +33,57 @@ class LoginActivity : AppCompatActivity() {
 
     private val viewModel by viewModel<LoginViewModel>()
 
+    private val handleCloseLoginScreen = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        viewModel.closedLoginScreen()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        handleLoginCode()
-        setupListeners()
-        setupObservers()
+        setupClickListeners()
+        setupStateListener()
+        setupActionListener()
     }
 
     private fun handleLoginCode() {
-        if (intent != null && intent.data != null) {
-            val code = intent.data?.getQueryParameter("code")
-            viewModel.receiveLoginCode(code)
-        }
+        val code = intent.data?.getQueryParameter("code")
+        viewModel.receiveLoginCode(code)
     }
 
-    private fun setupObservers() {
-        viewModel.userDataLiveData.observe(this) {
-            Log.d("Teste", it.toString())
-        }
-    }
-
-    private fun setupListeners() {
+    private fun setupClickListeners() {
         binding.btLogin.setOnClickListener {
-            navigateToExternalLogin()
+            viewModel.onLoginButtonClicked()
         }
+    }
+
+    private fun setupActionListener() {
+        onStateChange(viewModel) { state ->
+            state.updateContent()
+        }
+    }
+
+    private fun setupStateListener() {
+        onAction(viewModel) { action ->
+            when (action) {
+                LoginActivityAction.NavigateToMainActivity -> navigateToMainActivity()
+                LoginActivityAction.OpenLoginPage -> navigateToExternalLogin()
+                LoginActivityAction.ReceiveCodeLogin -> handleLoginCode()
+            }
+        }
+    }
+
+    private fun LoginActivityState.updateContent() {
+        binding.progressCircular.isVisible = isLoading
+        binding.contentGroup.isVisible = showContent
+    }
+
+    private fun navigateToMainActivity() {
+        val mainDeepLink = "faceitdata://main"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mainDeepLink))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     private fun navigateToExternalLogin() {
@@ -74,7 +105,8 @@ class LoginActivity : AppCompatActivity() {
             .setDefaultColorSchemeParams(toolbarColorParams)
             .build()
         browserBuilder.intent.setPackage(CHROME_PACKAGE)
-        browserBuilder.launchUrl(this, Uri.parse(Constants.LOGIN_URL))
+        browserBuilder.intent.data = Uri.parse(Constants.LOGIN_URL)
+        handleCloseLoginScreen.launch(browserBuilder.intent)
     }
 }
 

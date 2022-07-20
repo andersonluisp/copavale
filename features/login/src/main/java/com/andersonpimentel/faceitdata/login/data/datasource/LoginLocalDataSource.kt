@@ -1,20 +1,15 @@
 package com.andersonpimentel.faceitdata.login.data.datasource
 
+import com.andersonpimentel.faceitdata.login.data.local.LoginDataBase
+import com.andersonpimentel.faceitdata.login.data.model.UserTokenLocalModel
 import com.andersonpimentel.faceitdata.login.data.model.UserTokenResponse
 
-class LoginLocalDataSource (
-    private val loginDB: LoginDataStub
-        ) {
+class LoginLocalDataSource(
+    private val loginDB: LoginDataBase
+) {
+    fun saveUserTokens(user: UserTokenLocalModel) = loginDB.userDataDao().insertUserTokens(user)
 
-    suspend fun saveCodeLogin(code: String) {
-        loginDB.saveLoginCode(code)
-    }
+    fun deleteUserToken() = loginDB.userDataDao().deleteUserToken()
 
-    suspend fun saveUserData(user: UserTokenResponse) {
-        loginDB.saveUserData(user)
-    }
-
-    suspend fun getUserData() : UserTokenResponse? = loginDB.getUserData()
-
-    suspend fun getLoginCode() : String? = loginDB.loginCode
+    fun getUserTokens() = loginDB.userDataDao().getSavedUserTokens()
 }

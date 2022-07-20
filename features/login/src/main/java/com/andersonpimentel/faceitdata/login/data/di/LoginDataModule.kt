@@ -4,11 +4,13 @@ import com.andersonpimentel.faceitdata.login.data.api.LoginService
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginDataStub
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginLocalDataSource
 import com.andersonpimentel.faceitdata.login.data.datasource.LoginRemoteDataSource
+import com.andersonpimentel.faceitdata.login.data.local.LoginDataBase
 import com.andersonpimentel.faceitdata.login.data.repository.LoginRepositoryImpl
 import com.andersonpimentel.faceitdata.login.domain.repository.LoginRepository
 import com.andersonpimentel.faceitdata.login.util.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,6 +20,8 @@ private const val TIMEOUT_CONNECTION = 30L
 
 val loginDataModule = module {
 
+    single { LoginDataBase.createDataBase(androidContext())}
+
     factory { providesOkHttpClient() }
 
     single {
@@ -26,7 +30,7 @@ val loginDataModule = module {
         )
     }
 
-    factory { LoginLocalDataSource(LoginDataStub) }
+    factory { LoginLocalDataSource(loginDB = get()) }
 
     factory { LoginRemoteDataSource(service = get()) }
 

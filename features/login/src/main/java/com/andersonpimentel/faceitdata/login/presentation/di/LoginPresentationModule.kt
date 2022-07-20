@@ -5,5 +5,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val loginPresentationModule = module {
-    viewModel { LoginViewModel(loginRepository = get()) }
+    viewModel {
+        LoginViewModel(
+            getUserTokenAccessUseCase = get(),
+            verifyUserIsLoggedUseCase = get()
+        )
+    }
 }

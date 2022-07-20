@@ -1,12 +1,13 @@
 package com.andersonpimentel.faceitdata.login.domain.repository
 
 import com.andersonpimentel.faceitdata.login.data.model.UserTokenResponse
+import com.andersonpimentel.faceitdata.login.domain.model.UserToken
 import kotlinx.coroutines.flow.Flow
 
 interface LoginRepository {
 
-    fun saveLoginCode(code: String)
+    suspend fun getUserData(code: String): Flow<UserToken>
 
-    suspend fun getUserData(): Flow<UserTokenResponse>
+    suspend fun verifyUserIsLogged(): Flow<Boolean>
 
 }

@@ -1,7 +1,7 @@
-    apply plugin: 'com.android.application'
-    apply plugin: 'kotlin-android'
-    apply plugin: 'kotlin-android-extensions'
-    apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 32
@@ -48,10 +48,10 @@ dependencies {
     implementation dependencies.koinCore
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.0"
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation dependencies.ktx
+    implementation dependencies.appCompat
+    implementation dependencies.material
+    implementation dependencies.constraintLayout
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
@@ -79,8 +79,8 @@ dependencies {
 
     //Kotlin Components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     //RecyclerView Animation
     implementation "jp.wasabeef:recyclerview-animators:4.0.2"

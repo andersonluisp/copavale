@@ -15,6 +15,12 @@
             android:theme="@style/Theme.CopaVale.NoActionBar"
             android:screenOrientation="portrait"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="faceitdata"
+                    android:host="main" />
+            </intent-filter>
         </activity>
         <meta-data
             android:name="preloaded_fonts"
