@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.andersonpimentel.myapplication.ui.champs.TabMenuChampFragment"
+        android:name="com.andersonpimentel.faceitdata.ui.champs.TabMenuChampFragment"
         tools:layout="@layout/fragment_tab_menu_championships" >
         <action
             android:id="@+id/action_nav_home_to_nav_tab_menu_matches"
@@ -16,16 +16,16 @@
 
     <fragment
         android:id="@+id/nav_tab_menu_matches"
-        android:name="com.andersonpimentel.myapplication.ui.matches.TabMenuMatchesFragment"
+        android:name="com.andersonpimentel.faceitdata.ui.matches.TabMenuMatchesFragment"
         tools:layout="@layout/fragment_tab_menu_matches">
         <argument android:name="championshipDetails"
-            app:argType="com.andersonpimentel.myapplication.data.models.championship.Championship"/>
+            app:argType="com.andersonpimentel.faceitdata.data.models.championship.Championship"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.andersonpimentel.myapplication.ui.matches.MatchesFragment"
+        android:name="com.andersonpimentel.faceitdata.ui.matches.MatchesFragment"
         tools:layout="@layout/fragment_matches">
     </fragment>
 
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.andersonpimentel.myapplication.ui.champs.ChampsFragments"
+        android:name="com.andersonpimentel.faceitdata.ui.champs.ChampsFragments"
         tools:layout="@layout/fragment_champs" />
 
 
